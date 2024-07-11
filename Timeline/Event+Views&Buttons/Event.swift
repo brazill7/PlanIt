@@ -75,10 +75,7 @@ class Event: Identifiable{
         self.tag = tag
         self.name_lowercased = name.lowercased()
         
-        if (self.start_date != start_date || self.end_date != end_date){
-            //only update if dates changed
-            updateNotifications(to: modelContext)
-        }
+        updateNotifications(to: modelContext)
     }
     
 }
