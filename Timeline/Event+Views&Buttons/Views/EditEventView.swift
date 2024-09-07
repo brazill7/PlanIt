@@ -17,6 +17,7 @@ struct EditEventView: View {
     @State private var event_start: Date
     @State private var event_end: Date
     @State private var event_color: Color
+    @State private var event_notes: String
     @State private var tag: Tag?
     
     @State private var buttonDisabledReason = ""
@@ -26,6 +27,7 @@ struct EditEventView: View {
             _event_start = State(initialValue: event.start_date)
             _event_end = State(initialValue: event.end_date)
             _event_color = State(initialValue: event.color.getColor())
+            _event_notes = State(initialValue: event.notes)
             _tag = State(initialValue: event.tag)
             
         }
@@ -44,8 +46,12 @@ struct EditEventView: View {
                                in: event_start...)
                     ColorPicker("Pick a Color for this Event",
                                 selection: $event_color)
-                    
                     ChooseTagPicker(tag: $tag)
+                }
+                
+                Section{
+                    Text("Notes").font(.title).fontWeight(.bold)
+                    TextEditor(text: $event_notes)
                 }
                 
                 let buttonDisabled = submitErrorMessage() != ""
@@ -79,7 +85,8 @@ struct EditEventView: View {
         event.update(name: event_name,
                      start_date: event_start,
                      end_date: event_end,
-                     color: modelColor, 
+                     notes: event_notes,
+                     color: modelColor,
                      tag: tag,
                      modelContext: model)
     }

@@ -73,7 +73,7 @@ struct CalendarView: View {
             
             // Days of the Week Labels
             ForEach(daysOfTheWeek, id: \.self) { day in
-                Text(day)
+                Text(day) // SUN MON TUE WED etc
                 
             }
             
@@ -84,7 +84,13 @@ struct CalendarView: View {
             
             // Days
             ForEach(daysInMonth, id: \.self) { date in
-                CalendarDayCell(showTagColor: $showingTagColor, date: date, events: eventsForDate(date))
+                NavigationLink{
+                    VStack{
+                        Text("Hello World!")
+                    }
+                }label:{
+                    CalendarDayCell(showTagColor: $showingTagColor, date: date, events: eventsForDate(date))
+                }
             }
             .frame(maxHeight: .infinity)
         }

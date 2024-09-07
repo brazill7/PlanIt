@@ -19,6 +19,7 @@ class Event: Identifiable{
     var start_date: Date
     var end_date: Date
     var color: ModelColor
+    var notes: String
 
     //category
     //notes
@@ -51,11 +52,12 @@ class Event: Identifiable{
         self.color = ModelColor(red: 0, green: 0, blue: 0)
         self.tag = nil
     
+        self.notes = ""
         self.name_lowercased = ""
         self.name_lowercased = name.lowercased()
     }
     
-    init(name: String, start_date: Date, end_date: Date, color: ModelColor, tag: Tag?) {
+    init(name: String, start_date: Date, end_date: Date, notes: String, color: ModelColor, tag: Tag?) {
         self.id = UUID()
         self.name = name
         self.start_date = start_date
@@ -63,16 +65,18 @@ class Event: Identifiable{
         self.color = color
         self.name_lowercased = name.lowercased()
         self.tag = tag
+        self.notes = notes
         
         NotificationHandler.shared.scheduleNotifications(for: self)
     }
     
-    func update(name: String, start_date: Date, end_date: Date, color: ModelColor, tag: Tag?, modelContext: ModelContext){
+    func update(name: String, start_date: Date, end_date: Date, notes: String, color: ModelColor, tag: Tag?, modelContext: ModelContext){
         self.name = name
         self.start_date = start_date
         self.end_date = end_date
         self.color = color
         self.tag = tag
+        self.notes = notes
         self.name_lowercased = name.lowercased()
         
         updateNotifications(to: modelContext)
